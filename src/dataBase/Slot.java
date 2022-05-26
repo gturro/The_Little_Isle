@@ -2,8 +2,8 @@ package dataBase;
 
 public class Slot {
 
-    private int slotID;
-
+    private int gameID;
+    
     private String userName;
     private String classPlayer;
     private int coins;
@@ -13,13 +13,16 @@ public class Slot {
     public Slot(){
     }
 
-    public int getSlotID() {
-        return slotID;
+
+    public int getGameID() {
+        return gameID;
     }
 
-    public void setSlotID(int slotID) {
-        this.slotID = slotID;
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
+
 
     //GETTERS
     public String getUserName() {

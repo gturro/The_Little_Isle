@@ -23,6 +23,8 @@ public class LoadMenu extends Menu{
 
     private boolean savedGamesEmpty = true;
 
+    private boolean noConnection = false;
+
     //COMUN
     private int x, y, w, h;
 
@@ -58,15 +60,29 @@ public class LoadMenu extends Menu{
  
     //DATABASE
     //get saved games
-    public void getSlots() throws SQLException {
+    public void getSlots() {
+        DataBase db;
         if(!slotsLoaded()){
-            DataBase db = new DataBase();
-            savedGames = db.getGameData();
-            setSlotsLoaded(true);
-            checkIfSlotsAreEmpty();
-            logSlots(savedGames);  
+            try {
+                db = new DataBase();
+                savedGames = db.getGameData();
+                logSlots(savedGames);  
+            } catch (SQLException e) {
+                e.printStackTrace();
+                noConnection = true;
+            } finally {
+                setSlotsLoaded(true);
+                checkIfSlotsAreEmpty();
+            }
         }   
     }
+
+    private void drawNoConnec() {
+        String text="No connection";
+        g2.setColor(new Color(255,0,0,180));
+        g2.drawString(text, getXCentredText(text, gp.screenWidth/2), gp.screenHeight/2+gp.tileSize*2);
+    }
+
     
     private void logSlots(Slot[] savedGames) {
             for (int i = 0; i < savedGames.length; i++) {
@@ -151,7 +167,12 @@ public class LoadMenu extends Menu{
                 i=tempI;
             }
         }
-        if (savedGamesEmpty)  { drawEmptyText(); }
+        if (savedGamesEmpty) { 
+            drawEmptyText(); 
+        }
+        if (noConnection) {
+            drawNoConnec();
+        }
     }
 
     private void checkIfSlotsAreEmpty () {
@@ -284,6 +305,7 @@ public class LoadMenu extends Menu{
     }
     private void loadGame(int slot) {
         loadClass(slot);
+        gp.player.setGameID(savedGames[slot].getGameID());
         gp.player.setPlayerName(savedGames[slot].getUserName());
         gp.player.setClasse(savedGames[slot].getClassPlayer());
         gp.player.setCoins(savedGames[slot].getCoins());
@@ -319,11 +341,7 @@ public class LoadMenu extends Menu{
             drawLoading();
             menuDrawed=true;
         } else if (!slotsLoaded()) { 
-            try {
-                getSlots();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            getSlots();
         } 
     }
 }

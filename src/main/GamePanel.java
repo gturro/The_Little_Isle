@@ -191,7 +191,13 @@ public class GamePanel extends JPanel implements Runnable {
      */
     //save game to dataBase
      private void saveGame() throws SQLException {
-        dB.saveGameData(player.getPlayerName(), player.getClasse() ,player.getCoins(), player.getKeys(), (double) (Math.round(gameTime*100.0)/100.0));
+        gameTime = (float) (Math.round(gameTime*100.0)/100.0);
+         if (player.getGameID() == 0) {
+            dB.saveNewGame(player.getPlayerName(), player.getClasse() ,player.getCoins(), player.getKeys(), gameTime);
+         } else {
+             dB.saveLoadedGame(player.getCoins(), player.getKeys(), gameTime, player.getGameID());
+         }
+        
         System.out.println("Time saved:"+ (Math.round(gameTime*100.0)/100.0));
         System.out.println("Game Saved");
         

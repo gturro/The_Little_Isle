@@ -9,6 +9,8 @@ public class Player extends Entity {
     public static int screenY;
     public static int screenX;
 
+    private int gameID = 0;
+
     private String playerName = "< on work >";
 
     //KEYS COLLECTED
@@ -31,6 +33,14 @@ public class Player extends Entity {
 
         setHitBoxArea( gp.tileSize/3, gp.tileSize/3, gp.tileSize/3, gp.tileSize/2);
         setDefaultValues();
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 
     public String getPlayerName() {
