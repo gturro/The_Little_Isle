@@ -60,6 +60,7 @@ public class MainMenu extends Menu{
         }
     }
 
+    @Override
     public void checkKey(){
         super.checkKey();
         if (gp.keyH.enterPressed){
@@ -75,6 +76,7 @@ public class MainMenu extends Menu{
         }
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         super.draw(g2);

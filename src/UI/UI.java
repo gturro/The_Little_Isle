@@ -19,7 +19,7 @@ public class UI {
 
     public Graphics2D g2;
 
-    private Font maruMonica;
+    Font maruMonica;
 
     Color whiteColor = Color.white;
 
@@ -28,16 +28,19 @@ public class UI {
     public boolean messageDisplay = false;
     public boolean isBonfire = false;
 
+    private InputStream is;
+
     public String message = "";
     int messageTimer = 0;
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        
-        InputStream is = getClass().getResourceAsStream("/fonts/MaruMonica.ttf") ;
         try {
+            is = getClass().getResourceAsStream("/fonts/MaruMonica.ttf") ;
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, is);
-        } catch (FontFormatException | IOException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FontFormatException e) {
             e.printStackTrace();
         }
         

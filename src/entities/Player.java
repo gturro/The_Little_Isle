@@ -87,32 +87,29 @@ public class Player extends Entity {
             String objectName = gp.objects[objbIndex].getObjectName();
 
             switch (objectName) {
-                case "key":
+                case "key" -> {
                     keys++;
                     gp.objects[objbIndex] = null;
-                    break;
-                case "coin":
+                }
+                case "coin" -> {
                     coins += 100;
                     gp.objects[objbIndex] = null;
-                    break;
-                case "door":
+                }
+                case "door" -> {
                     if (keys > 0){
                         keys--;
                         gp.objects[objbIndex] = null;
                     }
-                    break;
-                case "boots":
+                }
+                case "boots" -> {
                     setSpeed(getSpeed() + 3);
                     gp.objects[objbIndex] = null;
-                    break;
-                case "bonfire":
-                    gp.ui.showMessage("Magic bonfire...", Player.screenX/3, Player.screenY/2, 100);
-                    
-                    break;
-                case "chest":
+                }
+                case "bonfire" -> gp.ui.showMessage("Magic bonfire...", Player.screenX/3, Player.screenY/2, 100);
+                case "chest" -> {
                     System.out.println("Touched a CHEST");
                     gp.gameState = gp.endGameState;
-                    break;
+                }
                 
             }
         }
@@ -134,7 +131,7 @@ public class Player extends Entity {
             // ---------------- DISABLE FOR TESTING ------------------
             //COLLISIONS CHECKERS
             //TILE COLISION
-            //gp.collisionDetection.tileCheck(this);
+            gp.collisionDetection.tileCheck(this);
             // -------------------------------------------------------
 
             //OBJECT COLISION
@@ -142,17 +139,17 @@ public class Player extends Entity {
             pickUpObject(objbIndex);
 
             //ENEMIES COLISION
-            gp.collisionDetection.entityColision(this, gp.enemies);;
+            gp.collisionDetection.entityColision(this, gp.enemies);
 
 
             // if collision false player move(speed)
             if (collision == false) {
                 setSpriteSpeed((int) getSpeed()*4);
                 switch (getDirection()) {
-                    case "up": worldY -= getSpeed(); break;
-                    case "down": worldY += getSpeed(); break;
-                    case "left": worldX -= getSpeed(); break;
-                    case "right": worldX += getSpeed(); break;
+                    case "up" -> worldY -= getSpeed();
+                    case "down" -> worldY += getSpeed();
+                    case "left" -> worldX -= getSpeed();
+                    case "right" -> worldX += getSpeed();
                 }
                 //PRINT UBICACION PLAYER EN WORLD
                 //System.out.println("World COL = "+(worldX+getHitBoxArea().x)/gp.tileSize+"\nWorld ROW = "+(worldY+getHitBoxArea().y)/gp.tileSize);

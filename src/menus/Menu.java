@@ -82,6 +82,7 @@ public class Menu extends UI {
         }
     }
 
+    @Override
     public void draw(Graphics2D g2){
         g2.setFont(getMaruMonica());
         g2.setColor(blackC);

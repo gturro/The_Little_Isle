@@ -30,7 +30,7 @@ public class LoadMenu extends Menu{
 
     //BORDER
     private int borderX, borderY;
-    private int boardStroke = 7;
+    private final int boardStroke = 7;
 
     //
     private int newGameSelector = 0;
@@ -42,15 +42,15 @@ public class LoadMenu extends Menu{
     private int counter = 0;
     
     //COLORS
-    private Color white = new Color(255, 255, 255);
-    private Color boardBorder = new Color(255, 255, 255, 30);
-    private Color gridC = new Color(255, 255, 255, 150);
-    private Color slotsText = new Color(255, 255, 255 , 100);
-    private Color titleColor  = new Color(100, 0, 160, 230);
+    private final Color white = new Color(255, 255, 255);
+    private final Color boardBorder = new Color(255, 255, 255, 30);
+    private final Color gridC = new Color(255, 255, 255, 150);
+    private final Color slotsText = new Color(255, 255, 255 , 100);
+    private final Color titleColor  = new Color(100, 0, 160, 230);
     private Color c;
 
     //FONTS DERIVATIVES
-    private Font optionsFont = getMaruMonica().deriveFont(30F);
+    private final Font optionsFont = getMaruMonica().deriveFont(30F);
 
     public LoadMenu(GamePanel gp) {
         super(gp);
@@ -295,12 +295,16 @@ public class LoadMenu extends Menu{
     }
     
     private void loadClass(int slot) {
-        if (savedGames[slot].getClassPlayer().equals("mage")) {
-            gp.player = new Mage(gp);
-        } else if (savedGames[slot].getClassPlayer().equals("warrior")){
-            gp.player = new Warrior(gp);
-        } else {
-            gp.player = new Human(gp);
+        switch (savedGames[slot].getClassPlayer()) {
+            case "mage":
+                gp.player = new Mage(gp);
+                break;
+            case "warrior":
+                gp.player = new Warrior(gp);
+                break;
+            default:
+                gp.player = new Human(gp);
+                break;
         }
     }
     private void loadGame(int slot) {
@@ -314,6 +318,7 @@ public class LoadMenu extends Menu{
     }
 
     //CHECK KEY INPUT
+    @Override
     public void checkKey(){
         super.checkKey();
         System.out.println("Selector: "+getSelector());

@@ -10,6 +10,7 @@ import main.UtilityTool;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.io.IOException;
 
 
 public class Entity {
@@ -80,14 +81,13 @@ public class Entity {
         }
         spriteCounter++;
         if (spriteCounter > spriteSpeed) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 3;
-            } else if (spriteNum == 3){
-                spriteNum = 4;
-            } else if (spriteNum == 4){
-                spriteNum = 1;
+            switch (spriteNum) {
+                case 1 -> spriteNum = 2;
+                case 2 -> spriteNum = 3;
+                case 3 -> spriteNum = 4;
+                case 4 -> spriteNum = 1;
+                default -> {
+                }
             }
             spriteCounter = 0;
         }
@@ -100,7 +100,7 @@ public class Entity {
         try {
             img = ImageIO.read(getClass().getResourceAsStream(imgPath + ".png"));
             img = uT.scaleImg(img, gp.tileSize, gp.tileSize);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return img;
@@ -127,12 +127,12 @@ public class Entity {
     protected BufferedImage getDirectionImage(BufferedImage image) {
         try {
             switch (direction) {
-                case "up": image = getUpSprites(image); setDirection("idleLeft"); break;
-                case "down": image = getDownSprites(image); setDirection("idleRight"); break;
-                case "left": image = getLeftSprites(image); setDirection("idleLeft"); break;
-                case "right": image = getRightSprites(image); setDirection("idleRight"); break;
-                case "idleLeft": image = getIdleLeftSprites(image) ;break;
-                case "idleRight": image = getIdleRightSprites(image); break;
+                case "up" -> { image = getUpSprites(image); setDirection("idleLeft"); }
+                case "down" -> { image = getDownSprites(image); setDirection("idleRight"); }
+                case "left" -> { image = getLeftSprites(image); setDirection("idleLeft"); }
+                case "right" -> {  image = getRightSprites(image); setDirection("idleRight"); }
+                case "idleLeft" -> image = getIdleLeftSprites(image) ;
+                case "idleRight" -> image = getIdleRightSprites(image);
             }
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

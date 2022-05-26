@@ -28,41 +28,41 @@ public class CollisionDetection {
         int tileCheck1, tileCheck2;
 
         switch (entity.getDirection()) {
-            case "up":
+            case "up" -> {
                 entityTopRow = (int) ((entityTopWorldY - entity.getSpeed()) / gp.tileSize); // prediccion de tile cuando player se mueva(speed)
                 tileCheck1 = gp.tileM.overLayer[entityLeftCol][entityTopRow]; //
                 tileCheck2 = gp.tileM.overLayer[entityRightCol][entityTopRow];
                 if (gp.tileM.tile[tileCheck1].colision == true || gp.tileM.tile[tileCheck2].colision == true) {
                     entity.collision = true;
                 }
-                break;
+            }
 
-            case "down":
+            case "down" -> {
                 entityBottomRow = (int) ((entityBottomWorldY + entity.getSpeed()) / gp.tileSize);
                 tileCheck1 = gp.tileM.overLayer[entityLeftCol][entityBottomRow];
                 tileCheck2 = gp.tileM.overLayer[entityRightCol][entityBottomRow];
                 if (gp.tileM.tile[tileCheck1].colision == true || gp.tileM.tile[tileCheck2].colision == true) {
                     entity.collision = true;
                 }
-                break;
+            }
 
-            case "left":
+            case "left" -> {
                 entityLeftCol = (int) ((entityLeftWorldX - entity.getSpeed()) / gp.tileSize);
                 tileCheck1 = gp.tileM.overLayer[entityLeftCol][entityTopRow];
                 tileCheck2 = gp.tileM.overLayer[entityLeftCol][entityBottomRow];
                 if(gp.tileM.tile[tileCheck1].colision == true || gp.tileM.tile[tileCheck2].colision == true){
                     entity.collision = true;
                 }
-                break;
+            }
 
-            case "right":
+            case "right" -> {
                 entityRightCol = (int) ((entityRightWorldX + entity.getSpeed()) / gp.tileSize);
                 tileCheck1 = gp.tileM.overLayer[entityRightCol][entityTopRow];
                 tileCheck2 = gp.tileM.overLayer[entityRightCol][entityBottomRow];
                 if(gp.tileM.tile[tileCheck1].colision == true || gp.tileM.tile[tileCheck2].colision == true){
                     entity.collision = true;
                 }
-                break;
+            }
 
         }
 
@@ -85,10 +85,10 @@ public class CollisionDetection {
                 gp.objects[i].getHitBoxArea().y = gp.objects[i].getWorldY() + gp.objects[i].getHitBoxArea().y;
 
                 switch (entity.getDirection()) {
-                    case "up": entity.getHitBoxArea().y -= entity.getSpeed(); break;
-                    case "down": entity.getHitBoxArea().y += entity.getSpeed(); break;
-                    case "left": entity.getHitBoxArea().x -= entity.getSpeed(); break;
-                    case "right": entity.getHitBoxArea().x += entity.getSpeed(); break;
+                    case "up" -> entity.getHitBoxArea().y -= entity.getSpeed();
+                    case "down" -> entity.getHitBoxArea().y += entity.getSpeed();
+                    case "left" -> entity.getHitBoxArea().x -= entity.getSpeed();
+                    case "right" -> entity.getHitBoxArea().x += entity.getSpeed();
                 }
                 if(entity.getHitBoxArea().intersects(gp.objects[i].getHitBoxArea())){
                     //System.out.println("COLISSION!");
@@ -124,10 +124,10 @@ public class CollisionDetection {
                 targetEntity.getHitBoxArea().y = targetEntity.getWorldY() + targetEntity.getHitBoxArea().y;
     
                 switch (entity.getDirection()) {
-                    case "up": entity.getHitBoxArea().y -= entity.getSpeed(); break;
-                    case "down": entity.getHitBoxArea().y += entity.getSpeed(); break;
-                    case "left": entity.getHitBoxArea().x -= entity.getSpeed(); break;
-                    case "right": entity.getHitBoxArea().x += entity.getSpeed(); break;
+                    case "up" -> entity.getHitBoxArea().y -= entity.getSpeed();
+                    case "down" -> entity.getHitBoxArea().y += entity.getSpeed();
+                    case "left" -> entity.getHitBoxArea().x -= entity.getSpeed();
+                    case "right" -> entity.getHitBoxArea().x += entity.getSpeed();
                 }
                 if(entity.getHitBoxArea().intersects(targetEntity.getHitBoxArea())){
                     //System.out.println("COLISSION!");
@@ -154,11 +154,12 @@ public class CollisionDetection {
                 gp.player.getHitBoxArea().y = gp.player.getWorldY() + gp.player.getHitBoxArea().y;
     
                 switch (entity.getDirection()) { //prediction
-                    case "up": entity.getHitBoxArea().y -= entity.getSpeed(); break;
-                    case "down": entity.getHitBoxArea().y += entity.getSpeed(); break;
-                    case "left": entity.getHitBoxArea().x -= entity.getSpeed(); break;
-                    case "right": entity.getHitBoxArea().x += entity.getSpeed(); break;
+                    case "up" -> entity.getHitBoxArea().y -= entity.getSpeed();
+                    case "down" -> entity.getHitBoxArea().y += entity.getSpeed();
+                    case "left" -> entity.getHitBoxArea().x -= entity.getSpeed();
+                    case "right" -> entity.getHitBoxArea().x += entity.getSpeed();
                 }
+        //prediction
                 if(entity.getHitBoxArea().intersects(gp.player.getHitBoxArea())) {entity.collision=true;}
     
                 //reset world hitboxArea values

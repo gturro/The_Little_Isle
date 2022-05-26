@@ -126,6 +126,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     // GAME LOOP (delta)
+    @Override
     public void run() {
         double drawInterval = 1000000000 / FPS;
         double delta = 0;
@@ -202,17 +203,16 @@ public class GamePanel extends JPanel implements Runnable {
         System.out.println("Game Saved");
         
     }
-
+     int count=0;
     //update assets
     public void update() {
         
         if (gameState == titleState) {}
 
         if (gameState == playState) {
-            gameTime += 1/FPS;
-            System.out.println("GAME TIME: "+ gameTime);
+            gameTime += 1/FPS;         
             player.update();
-            for (Entity e : enemies) { if (e != null) {e.update();} }
+            for (Entity e : enemies) { if (e != null) {e.update(); } }
         }
 
         if (gameState == pauseState) {}
@@ -233,6 +233,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     //draw
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -247,25 +248,21 @@ public class GamePanel extends JPanel implements Runnable {
             // ENTITY LIST
             entityList.add(player);
             // add enemies
-            for (int i = 0; i < enemies.length; i++) {
-                if (enemies[i] != null) {
-                    entityList.add(enemies[i]);
+            for (Entity enemie : enemies) {
+                if (enemie != null) {
+                    entityList.add(enemie);
                 }
             }
             // add objects
-            for (int i = 0; i < objects.length; i++) {
-                if (objects[i] != null) {
-                    entityList.add(objects[i]);
+            for (Entity object : objects) {
+                if (object != null) {
+                    entityList.add(object);
                 }
             }
             // sort list by worldY
-            Collections.sort(entityList, new Comparator<Entity>() {
-
-                @Override
-                public int compare(Entity e1, Entity e2) {
-                    int result = Integer.compare(e1.getWorldY(), e2.getWorldY());
-                    return result;
-                }
+            Collections.sort(entityList, (Entity e1, Entity e2) -> {
+                int result = Integer.compare(e1.getWorldY(), e2.getWorldY());
+                return result;
             });
 
             // DRAW ENTITIES
@@ -275,11 +272,11 @@ public class GamePanel extends JPanel implements Runnable {
             entityList.clear();
 
             // DRAW EVENTS
-            for (int i = 0; i < events.length; i++) {
-                if (events[i] != null) {
-                    events[i].drawEvents(g2, events[i].getArea());
+            /* for (Event event : events) {
+                if (event != null) {
+                    event.drawEvents(g2, event.getArea());
                 }
-            }
+            } */
 
             // DRAW UI
             ui.draw(g2);

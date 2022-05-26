@@ -110,7 +110,8 @@ public class Demon extends Entity {
 
     @Override
     public void update() {
-        if (getDirection() != "idleLeft") {
+        if ("idleLeft".equals(getDirection())) {
+        } else {
             demonGuard();
         }
         collision = false;
@@ -119,70 +120,51 @@ public class Demon extends Entity {
 
         if (collision == false) {
             switch (getDirection()) {
-                case "up":
-                    worldY -= getSpeed();
-                    break;
-                case "down":
-                    worldY += getSpeed();
-                    break;
-                case "left":
-                    worldX -= getSpeed();
-                    break;
-                case "right":
-                    worldX += getSpeed();
-                    break;
+                case "up" -> worldY -= getSpeed();
+                case "down" -> worldY += getSpeed();
+                case "left" -> worldX -= getSpeed();
+                case "right" -> worldX += getSpeed();
             }
         } else {
             switch (getDirection()) {
-                case "up":
-                    setDirection("down");
-                    break;
-                case "down":
-                    setDirection("up");
-                    break;
-                case "left":
-                    setDirection("right");
-                    break;
-                case "right":
-                    setDirection("left");
-                    break;
+                case "up" -> setDirection("down");
+                case "down" -> setDirection("up");
+                case "left" -> setDirection("right");
+                case "right" -> setDirection("left");
             }
         }
 
         // IDLE POSITION COUNTER
         idleTimer++;
-        if (idleTimer > 150 && getDirection() == "idleLeft") {
+        if (idleTimer > 150 && "idleLeft".equals(getDirection())) {
             setDirection("idleRight");
             idleTimer = 0;
-        } else if (idleTimer > 150 && getDirection() == "idleRight") {
+        } else if (idleTimer > 150 && "idleRight".equals(getDirection())) {
             setDirection("idleLeft");
             idleTimer = 0;
         }
 
         // SPRITE SPEED
-        if (getDirection() == "idleLeft" || getDirection() == "idleRight") {
+        if ("idleLeft".equals(getDirection()) || "idleRight".equals(getDirection())) {
             spriteSpeed = 10;
         }
-        if (getDirection() == "up" || getDirection() == "down" || getDirection() == "left"
-                || getDirection() == "right") {
+        if ("up".equals(getDirection()) || "down".equals(getDirection()) || "left".equals(getDirection())
+                || "right".equals(getDirection())) {
             spriteSpeed = 20;
         }
 
         // SPRITE COUNTER
         spriteCounter++;
         if (spriteCounter > spriteSpeed) {
-            if (spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 3;
-            } else if (spriteNum == 3) {
-                spriteNum = 4;
-            } else if (spriteNum == 4) {
-                spriteNum = 5;
-            } else if (spriteNum == 5) {
-                spriteNum = 6;
-            } else if (spriteNum == 6) {
-                spriteNum = 1;
+            switch (spriteNum) {
+                case 1 -> spriteNum = 2;
+                case 2 -> spriteNum = 3;
+                case 3 -> spriteNum = 4;
+                case 4 -> spriteNum = 5;
+                case 5 -> spriteNum = 6;
+                case 6 -> spriteNum = 1;
+                default -> {
+                }
             }
             spriteCounter = 0;
         }

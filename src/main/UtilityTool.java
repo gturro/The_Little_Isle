@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import entities.Player;
+import java.io.IOException;
 
 public class UtilityTool {
     GamePanel gp;
@@ -22,7 +23,7 @@ public class UtilityTool {
         try {
             img = ImageIO.read(getClass().getResourceAsStream(imgPath + ".png"));
             img = scaleImg(img, w, h);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return img;

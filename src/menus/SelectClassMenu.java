@@ -16,20 +16,23 @@ import main.GamePanel;
 
 public class SelectClassMenu extends Menu{
 
-    private Color titleColor  = new Color(100, 0, 160, 230);
+    private final Color titleColor  = new Color(100, 0, 160, 230);
 
     private int spriteCounter = 0;
     private int spriteNum = 0;
-    private int spriteSpeed = 34;
+    private final int spriteSpeed = 34;
 
 
 
-    private ArrayList<BufferedImage> mageImg = new ArrayList<BufferedImage>(); 
-    private ArrayList<BufferedImage> normalImg = new ArrayList<BufferedImage>(); 
-    private ArrayList<BufferedImage> warriorImg = new ArrayList<BufferedImage>(); 
+    private ArrayList<BufferedImage> mageImg; 
+    private ArrayList<BufferedImage> normalImg;
+    private ArrayList<BufferedImage> warriorImg;
 
     public SelectClassMenu(GamePanel gp) {
         super(gp);
+        mageImg = new ArrayList<>(); 
+        normalImg = new ArrayList<>(); 
+        warriorImg = new ArrayList<>();
         setMaxSelector(2);
         getImages();
     }
@@ -99,6 +102,7 @@ public class SelectClassMenu extends Menu{
     } 
 
     //CHECK KEY INPUT
+    @Override
     public void checkKey(){
         super.checkKey();
         String selectedClass = null;
@@ -125,6 +129,7 @@ public class SelectClassMenu extends Menu{
         }
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         super.draw(g2);

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DataBase {
-    private Connection conn;
+    private final Connection conn;
 
     public DataBase() throws SQLException{
         String url = "jdbc:mysql://localhost/LittleIslandData";
@@ -72,12 +72,11 @@ public class DataBase {
         Statement st = conn.createStatement();
         String getGameId = "SELECT id FROM UserGameData ORDER BY gameDate DESC";
         ResultSet rs =  st.executeQuery(getGameId);
-        for (int i = 0; i < savedGames.length; i++) {
-            if(rs.next()){
+        for (Slot savedGame : savedGames) {
+            if (rs.next()) {
                 int gameID = rs.getInt(1);
-                savedGames[i].setGameID(gameID);
+                savedGame.setGameID(gameID);
             }
-            
         }
         return savedGames;
     }
@@ -86,12 +85,11 @@ public class DataBase {
         Statement st = conn.createStatement();
         String getNames = "SELECT userName FROM UserGameData ORDER BY gameDate DESC";
         ResultSet rs =  st.executeQuery(getNames);
-        for (int i = 0; i < savedGames.length; i++) {
-            if(rs.next()){
+        for (Slot savedGame : savedGames) {
+            if (rs.next()) {
                 String name = rs.getString(1);
-                savedGames[i].setUserName(name);
+                savedGame.setUserName(name);
             }
-            
         }
         return savedGames;
     }
@@ -100,12 +98,11 @@ public class DataBase {
         Statement st = conn.createStatement();
         String getClass = "SELECT class FROM UserGameData ORDER BY gameDate DESC";
         ResultSet rs =  st.executeQuery(getClass);
-        for (int i = 0; i < savedGames.length; i++) {
-            if(rs.next()) {
+        for (Slot savedGame : savedGames) {
+            if (rs.next()) {
                 String classPlayer = rs.getString(1);
-                savedGames[i].setClassPlayer(classPlayer);
+                savedGame.setClassPlayer(classPlayer);
             }
-            
         }
         return savedGames;
     }
@@ -114,12 +111,11 @@ public class DataBase {
         Statement st = conn.createStatement();
         String getCoins = "SELECT coinsCollected FROM UserGameData ORDER BY gameDate DESC";
         ResultSet rs =  st.executeQuery(getCoins);
-        for (int i = 0; i < savedGames.length; i++) {
-            if(rs.next()) {
+        for (Slot savedGame : savedGames) {
+            if (rs.next()) {
                 int coins = rs.getInt(1);
-                savedGames[i].setCoins(coins);
+                savedGame.setCoins(coins);
             }
-            
         }
         return savedGames;
     }
@@ -128,10 +124,10 @@ public class DataBase {
         Statement st = conn.createStatement();
         String getKeys = "SELECT keysCollected FROM UserGameData ORDER BY gameDate DESC";
         ResultSet rs =  st.executeQuery(getKeys);
-        for (int i = 0; i < savedGames.length; i++) {
-            if(rs.next()) {
-            int keys = rs.getInt(1);
-            savedGames[i].setKeys(keys);
+        for (Slot savedGame : savedGames) {
+            if (rs.next()) {
+                int keys = rs.getInt(1);
+                savedGame.setKeys(keys);
             }
         }
         return savedGames;
@@ -141,10 +137,10 @@ public class DataBase {
         Statement st = conn.createStatement();
         String getTime = "SELECT timeGame FROM UserGameData ORDER BY gameDate DESC";
         ResultSet rs =  st.executeQuery(getTime);
-        for (int i = 0; i < savedGames.length; i++) { 
-            if(rs.next()) { 
-            float time = rs.getFloat(1);
-            savedGames[i].setGameTime(time);
+        for (Slot savedGame : savedGames) {
+            if (rs.next()) {
+                float time = rs.getFloat(1);
+                savedGame.setGameTime(time);
             }
         }
         return savedGames;

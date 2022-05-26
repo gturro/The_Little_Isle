@@ -33,7 +33,7 @@ public class TileManeger {
     }
 
     //BUFFER IMAGE LOADER
-    public void getTileTimage(){
+    private void getTileTimage(){
             setUp(10, "grass00", false);
             setUp(11, "grass01", false);
             setUp(12, "water00", true);
@@ -84,42 +84,40 @@ public class TileManeger {
             tile[index].image = uT.scaleImg(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].colision = collision;
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error input on tile "+index);        
         }
     }
 
     //LOAD MAP ARRAY
-    public void loadLayer(String path, int [][] layer) {
+    private void loadLayer(String path, int [][] layer) {
         try {
             InputStream iS = getClass().getResourceAsStream(path);
-            BufferedReader bR = new BufferedReader(new InputStreamReader(iS));
-
-            int col = 0;
-            int row = 0;
-
-            while (col < gp.maxWorldCol && row < gp.maxWorldRow){
-
-                String linia = bR.readLine();
-                
-                while(col < gp.maxWorldCol){ // bucle para dibujar cada fila
-
-                    // eliminamos los espacios entre los numeros de cada linia del mapa.txt
-                    String numeros [] = linia.split(" ");
-
-                    //guardamos cada numero en la variable para almacenarla en tileMapNum
-                    int num = Integer.parseInt(numeros[col]);
-
-                    layer [col][row] = num;
-                    col++; //incrementamos para procesar un nuevo numero
+            try (BufferedReader bR = new BufferedReader(new InputStreamReader(iS))) {
+                int col = 0;
+                int row = 0;
+                while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
+                    String linia = bR.readLine();
+                    
+                    while(col < gp.maxWorldCol){ // bucle para dibujar cada fila
+                        
+                        // eliminamos los espacios entre los numeros de cada linia del mapa.txt
+                        String numeros [] = linia.split(" ");
+                        
+                        //guardamos cada numero en la variable para almacenarla en tileMapNum
+                        int num = Integer.parseInt(numeros[col]);
+                        
+                        layer [col][row] = num;
+                        col++; //incrementamos para procesar un nuevo numero
+                    }
+                    
+                    if(col == gp.maxWorldCol){ //reset columna, pasamos a la siguiente fila
+                        col = 0;
+                        row++;
+                    }
                 }
-
-                if(col == gp.maxWorldCol){ //reset columna, pasamos a la siguiente fila
-                    col = 0;
-                    row++;
-                }
+                //mapa cargadp --> cerramos buffer (libermaos recursos)
             }
-            bR.close(); //mapa cargadp --> cerramos buffer (libermaos recursos)
         } catch (IOException e) {
             e.printStackTrace();
         }
