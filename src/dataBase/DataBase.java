@@ -12,6 +12,7 @@ public class DataBase {
 
     public DataBase() throws SQLException{
         String url = "jdbc:mysql://localhost/LittleIslandData";
+        //String url = "jdbc:mysql://localhost/LittleIslandData";
         String user = "littleIslandAdminData";
         String password = "";
         conn = DriverManager.getConnection(url, user, password);

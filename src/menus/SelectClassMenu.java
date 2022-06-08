@@ -2,6 +2,13 @@ package menus;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.text.JTextComponent;
+
 import entities.Mage;
 import entities.Human;
 import entities.Warrior;
@@ -22,11 +29,10 @@ public class SelectClassMenu extends Menu{
     private int spriteNum = 0;
     private final int spriteSpeed = 34;
 
-
-
     private ArrayList<BufferedImage> mageImg; 
     private ArrayList<BufferedImage> normalImg;
     private ArrayList<BufferedImage> warriorImg;
+
 
     public SelectClassMenu(GamePanel gp) {
         super(gp);
@@ -35,8 +41,16 @@ public class SelectClassMenu extends Menu{
         warriorImg = new ArrayList<>();
         setMaxSelector(2);
         getImages();
+        setPlayerName();
+        
     }
 
+    public void setPlayerName() {
+        JTextField textField = new JTextField(15);
+        textField.setLocation(gp.screenWidth/2, gp.screenHeight-gp.tileSize);
+        textField.setVisible(true);
+        this.gp.add(textField);
+    }
  
     //UI
 
@@ -85,7 +99,7 @@ public class SelectClassMenu extends Menu{
     }
 
     private void drawInputName() {
-        String text = "ENTER YOUR NAME IN THE TERMINAL";
+        String text = "ENTER YOUR NAME";
         g2.drawString(text, getXCentredText(text, gp.screenWidth/2), gp.screenHeight-gp.tileSize*2);
         /* Scanner s = new Scanner(System.in);
         String playerName = s.nextLine();
@@ -105,8 +119,6 @@ public class SelectClassMenu extends Menu{
     @Override
     public void checkKey(){
         super.checkKey();
-        String selectedClass = null;
-        System.out.println("Class to load: "+selectedClass);
 
         if (gp.keyH.enterPressed){
             //SET CLASS MAGE
@@ -124,8 +136,8 @@ public class SelectClassMenu extends Menu{
                 gp.player = new Warrior(this.gp); 
                 gp.player.setClasse("warrior");
             }
-            gp.gameState = gp.playState;
-            gp.setGameSaved(false);
+            /* gp.gameState = gp.playState;
+            gp.setGameSaved(false); */
         }
     }
 

@@ -65,7 +65,7 @@ public class Player extends Entity {
         worldY = 21*gp.tileSize;
 
         // ---------------- SPEED = 12 FOR TESTING ---------------
-            setSpeed(4); //SPEED
+            setSpeed(14); //SPEED
         // ---------------- --------------------------------------
 
         setSpriteSpeed(getSpeed()*6);
@@ -131,7 +131,7 @@ public class Player extends Entity {
             // ---------------- DISABLE FOR TESTING ------------------
             //COLLISIONS CHECKERS
             //TILE COLISION
-            gp.collisionDetection.tileCheck(this);
+            //gp.collisionDetection.tileCheck(this);
             // -------------------------------------------------------
 
             //OBJECT COLISION

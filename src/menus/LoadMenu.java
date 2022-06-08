@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import LocalSavedGames.BinFile;
 import dataBase.DataBase;
 import dataBase.Slot;
 import entities.Mage;
@@ -70,6 +72,7 @@ public class LoadMenu extends Menu{
             } catch (SQLException e) {
                 e.printStackTrace();
                 noConnection = true;
+                savedGames = BinFile.loadGame();
             } finally {
                 setSlotsLoaded(true);
                 checkIfSlotsAreEmpty();
@@ -80,7 +83,9 @@ public class LoadMenu extends Menu{
     private void drawNoConnec() {
         String text="No connection";
         g2.setColor(new Color(255,0,0,180));
-        g2.drawString(text, getXCentredText(text, gp.screenWidth/2), gp.screenHeight/2+gp.tileSize*2);
+        x = gp.tileSize * 11;
+        y = gp.tileSize * 2;
+        g2.drawString(text, x, y);
     }
 
     

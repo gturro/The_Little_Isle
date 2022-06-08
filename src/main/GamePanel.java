@@ -8,12 +8,13 @@ import java.awt.Graphics2D;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import javax.swing.JPanel;
 
+import LocalSavedGames.BinFile;
 import UI.*;
 import dataBase.DataBase;
+import dataBase.Slot;
 import entities.*;
 import events.Event;
 import tile.TileManeger;
@@ -87,7 +88,6 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity enemies[] = new Entity[4];
     //objects
     public Entity objects[] = new Entity[11];
-
 
 
     //---------------- PLAYER ----------------
@@ -193,11 +193,18 @@ public class GamePanel extends JPanel implements Runnable {
     //save game to dataBase
      private void saveGame() throws SQLException {
         gameTime = (float) (Math.round(gameTime*100.0)/100.0);
-         if (player.getGameID() == 0) {
-            dB.saveNewGame(player.getPlayerName(), player.getClasse() ,player.getCoins(), player.getKeys(), gameTime);
-         } else {
-             dB.saveLoadedGame(player.getCoins(), player.getKeys(), gameTime, player.getGameID());
-         }
+ /*        try {
+            if (player.getGameID() == 0) {
+                dB.saveNewGame(player.getPlayerName(), player.getClasse() ,player.getCoins(), player.getKeys(), gameTime);
+             } else {
+                 dB.saveLoadedGame(player.getCoins(), player.getKeys(), gameTime, player.getGameID());
+             }
+        } catch (SQLException e) {
+            new Exception("No acces to database. Saving data in local.\n"+e.toString()); */
+            Slot s = new Slot(player.getPlayerName(), player.getClasse(), player.getCoins(), player.getKeys(), gameTime);
+            BinFile.saveGames(s);
+        //}
+         
         
         System.out.println("Time saved:"+ (Math.round(gameTime*100.0)/100.0));
         System.out.println("Game Saved");
@@ -272,11 +279,11 @@ public class GamePanel extends JPanel implements Runnable {
             entityList.clear();
 
             // DRAW EVENTS
-            /* for (Event event : events) {
+            for (Event event : events) {
                 if (event != null) {
                     event.drawEvents(g2, event.getArea());
                 }
-            } */
+            }
 
             // DRAW UI
             ui.draw(g2);
