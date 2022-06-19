@@ -136,8 +136,8 @@ public class SelectClassMenu extends Menu{
                 gp.player = new Warrior(this.gp); 
                 gp.player.setClasse("warrior");
             }
-            /* gp.gameState = gp.playState;
-            gp.setGameSaved(false); */
+            gp.gameState = gp.playState;
+            gp.setGameSaved(false);
         }
     }
 

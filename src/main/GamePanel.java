@@ -193,7 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
     //save game to dataBase
      private void saveGame() throws SQLException {
         gameTime = (float) (Math.round(gameTime*100.0)/100.0);
- /*        try {
+        /* try {
             if (player.getGameID() == 0) {
                 dB.saveNewGame(player.getPlayerName(), player.getClasse() ,player.getCoins(), player.getKeys(), gameTime);
              } else {
@@ -201,8 +201,8 @@ public class GamePanel extends JPanel implements Runnable {
              }
         } catch (SQLException e) {
             new Exception("No acces to database. Saving data in local.\n"+e.toString()); */
-            Slot s = new Slot(player.getPlayerName(), player.getClasse(), player.getCoins(), player.getKeys(), gameTime);
-            BinFile.saveGames(s);
+            Slot slot = new Slot(player.getPlayerName(), player.getClasse(), player.getCoins(), player.getKeys(), gameTime);
+            BinFile.saveGames(slot);
         //}
          
         

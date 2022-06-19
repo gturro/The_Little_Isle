@@ -25,8 +25,8 @@ public class BinFile {
             randomAccess.seek(pos);
             slotString = slot.getFormattedString(slot.getUserName(), slot.NAME_SIZE); //user Name
             randomAccess.write(slotString.getBytes(Charset.defaultCharset()));
-            slotString = slot.getFormattedString(slot.getClassPlayer(), slot.CLASS_SIZE);
-            randomAccess.write(slotString.getBytes(Charset.defaultCharset())); //user Class
+            slotString = slot.getFormattedString(slot.getClassPlayer(), slot.CLASS_SIZE); //user Class
+            randomAccess.write(slotString.getBytes(Charset.defaultCharset())); 
             randomAccess.writeInt(slot.getCoins()); //user coins
             randomAccess.writeInt(slot.getKeys()); //user keys
             randomAccess.writeFloat(slot.getGameTime()); //user time played

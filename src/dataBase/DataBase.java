@@ -11,7 +11,7 @@ public class DataBase {
     private final Connection conn;
 
     public DataBase() throws SQLException{
-        String url = "jdbc:mysql://localhost/LittleIslandData";
+        String url = "jdbc:mysql://localhosttleIslandData";
         //String url = "jdbc:mysql://localhost/LittleIslandData";
         String user = "littleIslandAdminData";
         String password = "";
